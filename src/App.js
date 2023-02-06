@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Firstpage } from "./First";
+import Second from "./Second";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MyRoutes from "./MyRoutes";
+import './mystyle.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { GlobalContextProvider } from "./hooks/GlobalContext";
+import { Provider } from "react-redux";
+import myStore from './redux/store'
+// import { createStore } from "redux";
+// import counterReducer from "./redux/counterReducer";
+
 
 function App() {
+  // const myStore = createStore(counterReducer)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* <Firstpage/>
+      <Second/> */}
+      <GlobalContextProvider>
+        <Provider store={myStore}>
+          <MyRoutes />
+        </Provider>
+      </GlobalContextProvider>
+    </>
   );
 }
 
