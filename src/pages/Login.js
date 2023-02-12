@@ -1,12 +1,54 @@
 // rafce
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { authenticate, isAuthenticated, login } from '../api/userAPI'
 import Navbar from '../components/layout/Navbar'
 
 const Login = () => {
+    let [email, setEmail] = useState('')
+    let [password, setPassword] = useState('')
+
+    let [error, setError] = useState('')
+    let [success, setSuccess] = useState(false)
+
+    let navigate = useNavigate()
+    const {user} = isAuthenticated()
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        login(email, password)
+        .then(data=>{
+            if(data.error){
+                setError(data.error)
+            }
+            else{
+                // console.log(data)
+                authenticate(data)
+                setSuccess(true)
+            }
+        })
+    }
+    const showError = () => {
+        if(error){
+            return <div className='alert alert-danger'>{error}</div>
+        }
+    }
+
+    const redirect = () => {
+        if(success){
+            if(user && user.role===1){
+                navigate('/admin/dashboard')
+            }
+            else{
+                navigate('/')
+            }
+        }
+    }
     return (
         <>
             <Navbar />
+            {showError()}
+            {redirect()}
             <div className='container'>
                 <div className='row justify-content-center'>
                     <div className='col col-md-10 col-lg-8 col-xl-6'>
@@ -18,11 +60,11 @@ const Login = () => {
                                 <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
                                 <div className="form-floating">
-                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" onChange={e=>setEmail(e.target.value)} />
                                     <label htmlFor="floatingInput">Email address</label>
                                 </div>
                                 <div className="form-floating">
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" />
+                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={e=>setPassword(e.target.value)}/>
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
 
@@ -31,7 +73,7 @@ const Login = () => {
                                         <input type="checkbox" value="remember-me" /> Remember me
                                     </label>
                                 </div>
-                                <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                                <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={handleSubmit}>Sign in</button>
 
                                 <div className='d-flex justify-content-between'>
                                     <span>Do not have an account? <Link to='/register'>Register</Link></span>

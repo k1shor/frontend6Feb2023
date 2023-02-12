@@ -1,7 +1,28 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { isAuthenticated, signOut } from '../../api/userAPI'
 
 const Navbar = ({Deals}) => {
+    let {user} = isAuthenticated()
+
+    // let data = isAuthenticated()
+    // let user = data.user
+    let navigate = useNavigate()
+
+    const handleSignout = () => {
+        signOut()
+        .then(data=>{
+            if(data.error){
+                console.log(data.error)
+            }
+            else{
+                console.log(data.message)
+                navigate('/signin')
+            }
+        })
+
+    }
+
     return (
         <>
             <div className='container-fluid bg-dark'>
@@ -16,9 +37,32 @@ const Navbar = ({Deals}) => {
                         </form>
                     </div>
                     <div className='col-md-3 d-flex justify-content-evenly pt-1'>
+{
+    !user &&
+    <>
                         <Link to= '/signin'><i className='bi bi-box-arrow-in-left fs-3 text-white'></i></Link>
                         <Link to= '/register'><i className='bi bi-person-plus fs-3 text-white'></i></Link>
-                        <Link to= '/cart'><i className='bi bi-cart fs-3 text-white'></i></Link>
+    </>
+}
+
+{
+    user && user.role === 1 &&
+    <Link to='/admin/dashboard'><i className='bi bi-speedometer fs-3 text-white'></i></Link>
+}
+
+{
+    user && user.role === 0 && 
+    <>
+    <Link to='/user/profile'><i className='bi bi-person-circle fs-3 text-white'></i></Link>
+    <Link to= '/cart'><i className='bi bi-cart fs-3 text-white'></i></Link>
+    </>
+}
+
+{
+    user &&
+    <span><i className='bi bi-box-arrow-right fs-3 text-white' role={'button'} onClick={handleSignout}></i></span>
+}
+
                     </div>
                 </div>
             </div>

@@ -5,12 +5,17 @@ import { Firstpage } from './First'
 import Counter from './hooks/Counter'
 import DataFetch from './hooks/DataFetch'
 import Info from './hooks/Info'
+import AdminCategory from './pages/Admin/AdminCategory'
+import AdminDashboard from './pages/Admin/AdminDashboard'
 import Cart from './pages/Cart'
 import Contact from './pages/Contact'
 import Deals from './pages/Deals'
+import EmailConfirmation from './pages/EmailConfirmation'
+import ForgetPassword from './pages/ForgetPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ResetPassword from './pages/ResetPassword'
 import Counter2 from './redux/Counter2'
 import Second from './Second'
 
@@ -27,6 +32,14 @@ const MyRoutes = () => {
             <Route path='/deals' element={<Deals/>}/>
             <Route path='/cart' element={<Cart/>}/>
             <Route path='/contact' element={<Contact/>}/>
+
+
+            <Route path='/emailVerification/:token' element={<EmailConfirmation/>}/>
+            <Route path='/forgetpassword' element={<ForgetPassword/>}/>
+            <Route path='/resetpassword/:token' element={<ResetPassword/>}/>
+
+            <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+            <Route path='/admin/categories' element={<AdminCategory/>}/>
 
             {/* hooks */}
             <Route path='/counter' element={<Counter/>}/>
