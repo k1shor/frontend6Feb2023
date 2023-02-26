@@ -6,6 +6,18 @@ export const getAllProducts = () => {
     .catch(err=>console.log(err))
 }
 
+export const getFilteredProducts = (filters) => {
+    return fetch(`${API}/getfilteredproducts`,{
+        method: "POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(filters)
+    })
+    .then(res=>res.json())
+    .catch(err=>console.log(err))
+}
+
 export const addNewProduct = (product, token) => {
     return fetch(`${API}/addproduct`,{
         method: "POST",
