@@ -17,6 +17,12 @@ export const getFilteredProducts = (filters) => {
     .then(res=>res.json())
     .catch(err=>console.log(err))
 }
+export const getRelatedProducts = (id) => {
+    return fetch(`${API}/getrelatedproducts/${id}`)
+    .then(res=>res.json())
+    .catch(err=>console.log(err))
+}
+
 
 export const addNewProduct = (product, token) => {
     return fetch(`${API}/addproduct`,{

@@ -22,6 +22,7 @@ import Login from './pages/Login'
 import ProductDetails from './pages/ProductDetails'
 import Register from './pages/Register'
 import ResetPassword from './pages/ResetPassword'
+import Shipping from './pages/Shipping'
 import Counter2 from './redux/Counter2'
 import Second from './Second'
 
@@ -48,13 +49,17 @@ const MyRoutes = () => {
 
         <Route path='/product/:id' element={<ProductDetails/>}/>
 
-        {/* <Route path='/' element={<AdminRoute />}> */}
+        <Route path='/' element={<AdminRoute />}>
           <Route path='/admin/dashboard' element={<AdminDashboard />} />
           <Route path='/admin/categories' element={<AdminCategory />} />
           <Route path='/admin/products' element={<AdminProducts />} />
           <Route path='/admin/products/add' element={<AddProduct />} />
           <Route path='/admin/product/update/:id' element={<UpdateProduct />} />
-        {/* </Route> */}
+        </Route>
+<Route path='/' element={<UserRoute/>}>
+  <Route path='/shipping' element={<Shipping/>}/>
+</Route>
+
         {/* hooks */}
         <Route path='/counter' element={<Counter />} />
         <Route path='/info' element={<Info />} />

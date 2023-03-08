@@ -9,10 +9,10 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { GlobalContextProvider } from "./hooks/GlobalContext";
 import { Provider } from "react-redux";
-import myStore from './redux/store'
+// import myStore from './redux/store'
 // import { createStore } from "redux";
 // import counterReducer from "./redux/counterReducer";
-
+import { myStore } from "./components/reducers/store";
 
 function App() {
   // const myStore = createStore(counterReducer)

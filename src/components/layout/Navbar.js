@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { isAuthenticated, signOut } from '../../api/userAPI'
 
@@ -8,6 +9,11 @@ const Navbar = ({Deals}) => {
     // let data = isAuthenticated()
     // let user = data.user
     let navigate = useNavigate()
+
+    let cart_items = useSelector(state=>state.cart.cart_items)
+    cart_items = cart_items.length>0 ? cart_items.map(item=>item.quantity) : 0
+    let count = cart_items.length>0 ? cart_items.reduce((a,c)=>a+c) : 0
+
 
     const handleSignout = () => {
         signOut()
@@ -54,7 +60,9 @@ const Navbar = ({Deals}) => {
     user && user.role === 0 && 
     <>
     <Link to='/user/profile'><i className='bi bi-person-circle fs-3 text-white'></i></Link>
-    <Link to= '/cart'><i className='bi bi-cart fs-3 text-white'></i></Link>
+    <Link to= '/cart' className='position-relative'><i className='bi bi-cart fs-3 text-white'></i>
+    <span className='bg-warning position-absolute top-25 left-100 rounded-circle px-1'>{count}</span>
+    </Link>
     </>
 }
 
