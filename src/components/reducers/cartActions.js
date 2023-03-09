@@ -1,6 +1,6 @@
 import Swal from "sweetalert2"
 import { getProductDetails } from "../../api/productAPI"
-import { ADD_ITEMS, REMOVE_ITEMS } from "./cartConstants"
+import { ADD_ITEMS, REMOVE_ITEMS, SAVE_SHIPPING } from "./cartConstants"
 
 export const addItemsToCart = (product_id, quantity) => async (dispatch, getState) => {
     let data = await getProductDetails(product_id)
@@ -25,4 +25,12 @@ export const removeItemFromCart = (id) => (dispatch, getState) => {
         payload: id
     })
     localStorage.setItem('cart_items', JSON.stringify(getState().cart.cart_items))
+}
+
+export const saveShippingInfo = (shipping_info) => (dispatch, getState) => {
+    dispatch({
+        type: SAVE_SHIPPING,
+        payload: shipping_info
+    })
+    localStorage.setItem('shipping_info', JSON.stringify(getState().cart.shipping_info))
 }

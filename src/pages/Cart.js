@@ -46,7 +46,17 @@ const Cart = () => {
         e.preventDefault()
         quantity--
         if (quantity <= 0) {
-            Swal.fire('Warning', 'Do you want to remove this item?', 'quantity')
+            Swal.fire({
+                title:'Warning',
+                html: 'Do you want to remove this item?', 
+                icon: 'warning',
+                showCancelButton: true
+            })
+            .then(result=>{
+                if(result.isConfirmed){
+                    dispatch(removeItemFromCart(id))
+                }
+            })
         }
         else {
             dispatch(addItemsToCart(id, quantity))
@@ -126,9 +136,9 @@ const Cart = () => {
                         <h4>Order Total: Rs. {order_total}</h4>
                         {
                             cart_items.length > 0 ?
-                                <Link to='/shipping' className='btn btn-warning'>Proceed to Shipping</Link>
+                                <Link to='/shipping' className='btn btn-warning'>Proceed to Payment</Link>
                                 :
-                                <button className='btn btn-warning' disabled>Proceed to Shipping</button>
+                                <button className='btn btn-warning' disabled>Proceed to Payment</button>
                         }
 
                     </div>

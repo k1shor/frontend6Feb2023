@@ -1,8 +1,7 @@
 import Swal from "sweetalert2";
-import { ADD_ITEMS, CLEAR_CART, REMOVE_ITEMS } from "./cartConstants";
+import { ADD_ITEMS, CLEAR_CART, REMOVE_ITEMS, SAVE_SHIPPING } from "./cartConstants";
 
 export const cartReducer = (state, action) => {
-    console.log(action)
     switch (action.type) {
         case ADD_ITEMS:
             const itemExists = state.cart_items.find(item => item.product === action.payload.product)
@@ -52,7 +51,11 @@ export const cartReducer = (state, action) => {
             return { ...state, cart_items: state.cart_items.filter(item=>item.product!==action.payload) }
 
         case CLEAR_CART:
-            return { ...state }
+            return { ...state, cart_items: [] }
+
+        case SAVE_SHIPPING: 
+            Swal.fire('Success','Shipping Address Updated','success')
+            return { ...state, shipping_info: action.payload}
 
         default:
             return { ...state }

@@ -19,6 +19,7 @@ import EmailConfirmation from './pages/EmailConfirmation'
 import ForgetPassword from './pages/ForgetPassword'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import PaymentComponent from './pages/PaymentComponent'
 import ProductDetails from './pages/ProductDetails'
 import Register from './pages/Register'
 import ResetPassword from './pages/ResetPassword'
@@ -58,6 +59,7 @@ const MyRoutes = () => {
         </Route>
 <Route path='/' element={<UserRoute/>}>
   <Route path='/shipping' element={<Shipping/>}/>
+  <Route path='/payment' element={<PaymentComponent/>}/>
 </Route>
 
         {/* hooks */}
